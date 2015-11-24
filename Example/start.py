@@ -1,13 +1,8 @@
 from pyglet.gl import *
 from pyglet.gl.glu import *
 from pyglet import *
-def draw_line(p1, p2, color, width=1):
-    glLineWidth(width)
-    glColor4f(color[0], color[1], color[2], 1)
-    glBegin(GL_LINES)
-    glVertex3f(p1[0], p1[1], p1[2])
-    glVertex3f(p2[0], p2[1], p2[2])
-    glEnd()
+
+
 
 
 def draw_sphere(radius, color, alpha, x, y):
@@ -21,25 +16,27 @@ def draw_sphere(radius, color, alpha, x, y):
 
 window = pyglet.window.Window(1024, 720, caption = 'Demo', resizable = True)
 
+
 @window.event
 def on_resize(width, height):
+    #glViewport(0, 0, 50, 50)
+    glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
-    gluPerspective(45, width / float(height), .1, 1000)
+    gluPerspective(45, 500/350, .1, 1000)
     gluLookAt(
         1, 4, 3, # eye
         0, 0, 0, # target
         0, 1, 0  # up
     );
-
+    glMatrixMode(GL_MODELVIEW)
     return pyglet.event.EVENT_HANDLED
 
 @window.event
 def on_draw():
     glDisable(GL_DEPTH_TEST)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-    glLoadIdentity()
-    draw_sphere(1, (1, .5, .5), .2, 50, 50)
-    #draw_sphere(1, (128, .128, .128), .2, 50, 50)
+    draw_sphere(1.5, (1, .5, .5), .2, 500, 500)
+    draw_sphere(1, (.128, .128, .128), .2, 50, 50)
     texture = pyglet.image.load('sunmap.jpg')
     #texture.draw()
 
