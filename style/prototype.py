@@ -18,6 +18,7 @@ window = pyglet.window.Window(1024, 720, caption = 'Demo', resizable = True)
 
 lightfv = ctypes.c_float * 4
 label = pyglet.text.Label('Hello, world', font_name = 'Times New Roman', font_size = 12, x = 800, y = 700, anchor_x = 'center', anchor_y = 'center')
+
 @window.event
 def on_resize(width, height):
     glMatrixMode(GL_PROJECTION)

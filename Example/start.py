@@ -41,7 +41,7 @@ rotation = 0
 
 meshes = Wavefront('earth.obj')
 
-window = pyglet.window.Window(1024, 720, caption = 'Demo', resizable = True)
+window = pyglet.window.Window(1024, 720, caption = 'Demo', resizable = False)
 
 lightfv = ctypes.c_float * 4
 label = pyglet.text.Label('Hello, world', font_name = 'Times New Roman', font_size = 12, x = 800, y = 700, anchor_x = 'center', anchor_y = 'center')
