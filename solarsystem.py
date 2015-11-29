@@ -27,7 +27,6 @@ class World(object):
 
         base.setBackgroundColor(0, 0, 0)
         #base.disableMouse()
-
         base.useDrive()
 
         props = WindowProperties()
