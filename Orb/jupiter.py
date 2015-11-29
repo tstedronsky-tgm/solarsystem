@@ -1,4 +1,4 @@
-class Mars(object):
+class Jupiter(object):
 
     def __init__(self, concrete_orb):
         self.concrete_orb = concrete_orb
@@ -10,7 +10,7 @@ class Mars(object):
         return self.concrete_orb.get_size() * 1.8
 
     def get_texture(self):
-        return "models/mars_1k_tex.jpg"
+        return "models/jupiter_1k_tex.jpg"
 
     def get_orbitscale(self):
         return self.concrete_orb.get_orbitscale() * 1.52
