@@ -1,9 +1,13 @@
-__author__ = 'simon'
-class Orb(object):
-    def draw(self):
-        raise NotImplementedError("Method not implemented because class ist abstract")
+class Orb:
+
+    def get_size(self):
+        raise NotImplementedError("Method not implemented because class is abstract")
         pass
 
-    def move(self):
-        raise NotImplementedError("Method not implemented because class ist abstract")
+    def get_model(self):
+        raise NotImplementedError("Method not implemented because class is abstract")
+        pass
+
+    def get_texture(self):
+        raise NotImplementedError("Method not implemented because class is abstract")
         pass

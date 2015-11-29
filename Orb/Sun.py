@@ -1,14 +1,13 @@
-__author__ = 'simon'
+class Sun(object):
 
-import OrbDecorator
+    def __init__(self, concrete_orb):
+        self.concrete_orb = concrete_orb
 
-class Sun(OrbDecorator):
+    def get_model(self):
+        return "models/planet_sphere"
 
-    def draw(self):
-        pass
+    def get_size(self):
+        return self.concrete_orb.get_size() * 2
 
-    def move(self):
-        pass
-
-    def setTextures(self):
-        pass
+    def get_texture(self):
+        return "models/sun_1k_tex.jpg"

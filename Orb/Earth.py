@@ -1,14 +1,22 @@
-__author__ = 'simon'
+class Earth(object):
 
-import OrbDecorator
+    def __init__(self, concrete_orb):
+        self.concrete_orb = concrete_orb
 
-class Earth(OrbDecorator):
+    def get_model(self):
+        return "models/planet_sphere"
 
-    def draw(self):
-        pass
+    def get_size(self):
+        return self.concrete_orb.get_size()
 
-    def move(self):
-        pass
+    def get_texture(self):
+        return "models/earth_1k_tex.jpg"
 
-    def setTextures(self):
-        pass
+    def get_orbitscale(self):
+        return self.concrete_orb.get_orbitscale()
+
+    def get_yearscale(self):
+        return self.concrete_orb.get_yearscale()
+
+    def get_dayscale(self):
+        return self.concrete_orb.get_dayscale()

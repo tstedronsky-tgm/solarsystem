@@ -1,22 +1,15 @@
-__author__ = 'simon'
-
 import Orb
 
 class OrbDecorator(Orb):
 
-    size = "1000"
-    color = "Yellow"
-    speed = 10;
-    #moon =             Vorher brauchen wir mal einen Mond ;)
-    hasMoon = False;
-    degree = 20.5;
+    def __init__(self, concrete_orb):
+        self.concrete_orb = concrete_orb
 
+    def get_model(self):
+        return self.concrete_orb.get_model()
 
-    def draw(self):
-        pass
+    def get_size(self):
+        return self.concrete_orb.get_size()
 
-    def move(self):
-        pass
-
-    def setTextures(self):
-        pass
+    def get_texture(self):
+        return self.concrete_orb.get_texture()
