@@ -56,6 +56,7 @@ class World(object):
         #Erstellen der Events
         base.accept("p", self.handlePause)
         base.accept("o", self.handleCamera)
+        base.accept("i", self.handleBasicCamera)
         base.accept("escape", sys.exit)
         base.accept("1", self.slower)
         base.accept("2", self.normal)
@@ -247,7 +248,9 @@ class World(object):
     def handleCamera(self):
         base.enableMouse()
         base.useDrive()
-        base.camera.setPos(0, 0, 70)
+
+    def handleBasicCamera(self):
+        base.oobe()
 
     def slower(self):
         self.rotatePlanets(2)
