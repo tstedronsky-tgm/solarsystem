@@ -13,7 +13,7 @@ class DeathStar(object):
         return "models/deathstar.jpg"
 
     def get_orbitscale(self):
-        return 12
+        return 12.5
 
     # def get_yearscale(self):
     #     return self.concrete_orb.get_yearscale()
