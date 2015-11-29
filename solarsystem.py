@@ -1,6 +1,7 @@
 from direct.showbase.ShowBase import ShowBase
 
 from Orb.concreteOrb import ConcreteOrb
+from Orb.deathstar import DeathStar
 from Orb.earth import Earth
 from Orb.mars import Mars
 from Orb.mercury import Mercury
@@ -27,6 +28,10 @@ class World(object):
         base.setBackgroundColor(0, 0, 0)
         base.disableMouse()
 
+        props = WindowProperties()
+        props.setTitle('Solarsystem')
+        base.win.requestProperties(props)
+
         camera.setPos(0, 0, 45)
         camera.setHpr(0, -90, 0)
 
@@ -40,6 +45,7 @@ class World(object):
         self.m = Mars(self.co)
         self.e = Earth(self.co)
         self.mo = Moon(self.co)
+        self.ds = DeathStar(self.co)
 
         self.loadPlanets()
         self.rotatePlanets()
@@ -93,6 +99,14 @@ class World(object):
         self.mars.reparentTo(self.orbit_root_mars)
         self.mars.setPos(self.m.get_orbitscale(), 0, 0)
         self.mars.setScale(self.m.get_size())
+
+         # Erstellung des Todessterns
+        self.deathstar = loader.loadModel(self.ds.get_model())
+        self.deathstar.reparentTo(render)
+        self.deathstar_tex = loader.loadTexture(self.ds.get_texture())
+        self.deathstar.setTexture(self.deathstar_tex, 1)
+        self.deathstar.setScale(self.ds.get_size())
+        self.deathstar.setPos(self.ds.get_orbitscale(), 0, 0)
 
         # Erstellung der Erde
         self.earth = loader.loadModel(self.e.get_model())
