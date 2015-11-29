@@ -1,14 +1,14 @@
 from direct.showbase.ShowBase import ShowBase
 
-from Orb.concreteOrb import ConcreteOrb
-from Orb.deathstar import DeathStar
-from Orb.earth import Earth
-from Orb.mars import Mars
-from Orb.mercury import Mercury
-from Orb.sun import Sun
-from Orb.space import Space
-from Orb.venus import Venus
-from Orb.moon import Moon
+from orb.concreteOrb import ConcreteOrb
+from orb.deathstar import DeathStar
+from orb.earth import Earth
+from orb.jupiter import Jupiter
+from orb.mercury import Mercury
+from orb.sun import Sun
+from orb.space import Space
+from orb.venus import Venus
+from orb.moon import Moon
 
 base = ShowBase()
 
@@ -44,7 +44,7 @@ class World(object):
         self.s = Sun(self.co)
         self.merc = Mercury(self.co)
         self.v = Venus(self.co)
-        self.m = Mars(self.co)
+        self.j = Jupiter(self.co)
         self.e = Earth(self.co)
         self.mo = Moon(self.co)
         self.ds = DeathStar(self.co)
@@ -67,7 +67,7 @@ class World(object):
         #Festlegung der Orbits der einzelnen Planeten:
         self.orbit_root_mercury = render.attachNewNode('orbit_root_mercury')
         self.orbit_root_venus = render.attachNewNode('orbit_root_venus')
-        self.orbit_root_mars = render.attachNewNode('orbit_root_mars')
+        self.orbit_root_jupiter = render.attachNewNode('orbit_root_jupiter')
         self.orbit_root_earth = render.attachNewNode('orbit_root_earth')
 
         self.orbit_root_moon = (
@@ -105,12 +105,12 @@ class World(object):
         self.venus.setScale(self.v.get_size())
 
         # Erstellung von Jupiter
-        self.mars = loader.loadModel(self.m.get_model())
-        self.mars_tex = loader.loadTexture(self.m.get_texture())
-        self.mars.setTexture(self.mars_tex, 1)
-        self.mars.reparentTo(self.orbit_root_mars)
-        self.mars.setPos(self.m.get_orbitscale(), 0, 0)
-        self.mars.setScale(self.m.get_size())
+        self.jupiter = loader.loadModel(self.j.get_model())
+        self.jupiter_tex = loader.loadTexture(self.j.get_texture())
+        self.jupiter.setTexture(self.jupiter_tex, 1)
+        self.jupiter.reparentTo(self.orbit_root_jupiter)
+        self.jupiter.setPos(self.j.get_orbitscale(), 0, 0)
+        self.jupiter.setScale(self.j.get_size())
 
          # Erstellung des Todessterns
         self.deathstar = loader.loadModel(self.ds.get_model())
@@ -163,10 +163,10 @@ class World(object):
         self.day_period_moon = self.moon.hprInterval(
             (self.mo.get_dayscale()*mod), (360, 0, 0))
 
-        self.orbit_period_mars = self.orbit_root_mars.hprInterval(
-            (self.m.get_yearscale()*mod), (360, 0, 0))
-        self.day_period_mars = self.mars.hprInterval(
-            (self.m.get_dayscale()*mod), (360, 0, 0))
+        self.orbit_period_jupiter = self.orbit_root_jupiter.hprInterval(
+            (self.j.get_yearscale()*mod), (360, 0, 0))
+        self.day_period_jupiter = self.jupiter.hprInterval(
+            (self.j.get_dayscale()*mod), (360, 0, 0))
 
         self.day_period_sun.loop()
         self.orbit_period_mercury.loop()
@@ -177,8 +177,8 @@ class World(object):
         self.day_period_earth.loop()
         self.orbit_period_moon.loop()
         self.day_period_moon.loop()
-        self.orbit_period_mars.loop()
-        self.day_period_mars.loop()
+        self.orbit_period_jupiter.loop()
+        self.day_period_jupiter.loop()
 
     def handlePause(self):
         if self.simRunning:
@@ -202,10 +202,10 @@ class World(object):
                                   self.orbit_period_earth)
                 self.togglePlanet("Moon", self.day_period_moon,
                                   self.orbit_period_moon)
-            # Mars
-            if self.day_period_mars.isPlaying():
-                self.togglePlanet("Mars", self.day_period_mars,
-                                  self.orbit_period_mars)
+            # jupiter
+            if self.day_period_jupiter.isPlaying():
+                self.togglePlanet("jupiter", self.day_period_jupiter,
+                                  self.orbit_period_jupiter)
         else:
             # Unpause
             print("Resuming Simulation")
@@ -222,9 +222,9 @@ class World(object):
                                   self.orbit_period_earth)
                 self.togglePlanet("Moon", self.day_period_moon,
                                   self.orbit_period_moon)
-            if not self.day_period_mars.isPlaying():
-                self.togglePlanet("Mars", self.day_period_mars,
-                                  self.orbit_period_mars)
+            if not self.day_period_jupiter.isPlaying():
+                self.togglePlanet("jupiter", self.day_period_jupiter,
+                                  self.orbit_period_jupiter)
 
         # toggle self.simRunning
         self.simRunning = not self.simRunning
