@@ -3,7 +3,7 @@ from direct.showbase.ShowBase import ShowBase
 from Orb.concreteOrb import ConcreteOrb
 from Orb.deathstar import DeathStar
 from Orb.earth import Earth
-from Orb.Mars import Mars
+from Orb.mars import Mars
 from Orb.mercury import Mercury
 from Orb.sun import Sun
 from Orb.space import Space
@@ -247,6 +247,7 @@ class World(object):
     def handleCamera(self):
         base.enableMouse()
         base.useDrive()
+        base.camera.setPos(0, 0, 70)
 
     def slower(self):
         self.rotatePlanets(2)
