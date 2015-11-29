@@ -29,7 +29,6 @@ class World(object):
         #base.disableMouse()
 
         base.disableMouse()
-
         props = WindowProperties()
         props.setTitle('Solarsystem')
         base.win.requestProperties(props)
