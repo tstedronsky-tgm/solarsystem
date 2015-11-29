@@ -92,7 +92,7 @@ class World(object):
         self.venus.setPos(self.v.get_orbitscale(), 0, 0)
         self.venus.setScale(self.v.get_size())
 
-        # Erstellung von Mars
+        # Erstellung von Jupiter
         self.mars = loader.loadModel(self.m.get_model())
         self.mars_tex = loader.loadTexture(self.m.get_texture())
         self.mars.setTexture(self.mars_tex, 1)

@@ -50,11 +50,6 @@ class World(DirectObject):
         #-mayChange argument lets us change the text later in the program.
         #       By default mayChange is set to 0. Trying to change text when
         #       mayChange is set to 0 will cause the program to crash.
-        self.title = OnscreenText(
-            text="Panda3D: Tutorial 3 - Events",
-            parent=base.a2dBottomRight, align=TextNode.A_right,
-            style=1, fg=(1, 1, 1, 1), pos=(-0.1, 0.1), scale=.07)
-
         self.mouse1EventText = self.genLabelText(
             "Mouse Button 1: Toggle entire Solar System [RUNNING]", 1)
         self.skeyEventText = self.genLabelText("[S]: Toggle Sun [RUNNING]", 2)
@@ -196,11 +191,11 @@ class World(DirectObject):
             interval.pause()
         else:
             interval.resume()
-    # end toggleInterval
+            # end toggleInterval
 
-    # Earth needs a special buffer function because the moon is tied to it
-    # When the "e" key is pressed, togglePlanet is called on both the earth and
-    # the moon.
+            # Earth needs a special buffer function because the moon is tied to it
+            # When the "e" key is pressed, togglePlanet is called on both the earth and
+            # the moon.
     def handleEarth(self):
         self.togglePlanet("Earth", self.day_period_earth,
                           self.orbit_period_earth, self.ekeyEventText)
@@ -215,13 +210,13 @@ class World(DirectObject):
         self.yearCounter += 1
         self.yearCounterText.setText(
             str(self.yearCounter) + " Earth years completed")
-    # end incYear
+        # end incYear
 
 
-#########################################################################
-# Except for the one commented line below, this is all as it was before #
-# Scroll down to the next comment to see an example of sending messages #
-#########################################################################
+    #########################################################################
+    # Except for the one commented line below, this is all as it was before #
+    # Scroll down to the next comment to see an example of sending messages #
+    #########################################################################
 
     def loadPlanets(self):
         self.orbit_root_mercury = render.attachNewNode('orbit_root_mercury')
@@ -328,7 +323,7 @@ class World(DirectObject):
         self.day_period_moon.loop()
         self.orbit_period_mars.loop()
         self.day_period_mars.loop()
-    # end RotatePlanets()
+        # end RotatePlanets()
 
 # end class world
 
