@@ -35,10 +35,10 @@ class World(object):
         camera.setPos(0, 0, 45)
         camera.setHpr(0, -90, 0)
 
-        #konkreter Himmelskoerper:
+        # konkreter Himmelskoerper:
         self.co = ConcreteOrb()
 
-        #dekorierte Himmelskoerper:
+        # dekorierte Himmelskoerper:
         self.s = Sun(self.co)
         self.merc = Mercury(self.co)
         self.v = Venus(self.co)
@@ -49,6 +49,11 @@ class World(object):
 
         self.loadPlanets()
         self.rotatePlanets()
+        self.simRunning = True
+
+        #Erstellen der Events
+        base.accept("p", self.handlePause)
+        base.accept("escape", sys.exit)
 
     def loadPlanets(self):
 
@@ -168,5 +173,69 @@ class World(object):
         self.orbit_period_mars.loop()
         self.day_period_mars.loop()
 
+    def handlePause(self):
+        if self.simRunning:
+            print("Pausing Simulation")
+            # changing the text to reflect the change from "RUNNING" to
+            # "PAUSED"
+            # For each planet, check if it is moving and if so, pause it
+            # Sun
+            if self.day_period_sun.isPlaying():
+                self.togglePlanet("Sun", self.day_period_sun, None)
+            if self.day_period_mercury.isPlaying():
+                self.togglePlanet("Mercury", self.day_period_mercury,
+                                  self.orbit_period_mercury)
+            # Venus
+            if self.day_period_venus.isPlaying():
+                self.togglePlanet("Venus", self.day_period_venus,
+                                  self.orbit_period_venus)
+            #Earth and moon
+            if self.day_period_earth.isPlaying():
+                self.togglePlanet("Earth", self.day_period_earth,
+                                  self.orbit_period_earth)
+                self.togglePlanet("Moon", self.day_period_moon,
+                                  self.orbit_period_moon)
+            # Mars
+            if self.day_period_mars.isPlaying():
+                self.togglePlanet("Mars", self.day_period_mars,
+                                  self.orbit_period_mars)
+        else:
+            # Unpause
+            print("Resuming Simulation")
+            if not self.day_period_sun.isPlaying():
+                self.togglePlanet("Sun", self.day_period_sun, None)
+            if not self.day_period_mercury.isPlaying():
+                self.togglePlanet("Mercury", self.day_period_mercury,
+                                  self.orbit_period_mercury)
+            if not self.day_period_venus.isPlaying():
+                self.togglePlanet("Venus", self.day_period_venus,
+                                  self.orbit_period_venus)
+            if not self.day_period_earth.isPlaying():
+                self.togglePlanet("Earth", self.day_period_earth,
+                                  self.orbit_period_earth)
+                self.togglePlanet("Moon", self.day_period_moon,
+                                  self.orbit_period_moon)
+            if not self.day_period_mars.isPlaying():
+                self.togglePlanet("Mars", self.day_period_mars,
+                                  self.orbit_period_mars)
+
+        # toggle self.simRunning
+        self.simRunning = not self.simRunning
+
+    def togglePlanet(self, planet, day, orbit=None, text=None):
+        if day.isPlaying():
+            state = " [PAUSED]"
+        else:
+            state = " [RUNNING]"
+        self.toggleInterval(day)
+        if orbit:
+            self.toggleInterval(orbit)
+
+
+    def toggleInterval(self, interval):
+        if interval.isPlaying():
+            interval.pause()
+        else:
+            interval.resume()
 w = World()
 base.run()
