@@ -27,7 +27,8 @@ class World(object):
 
         base.setBackgroundColor(0, 0, 0)
         #base.disableMouse()
-        base.useDrive()
+
+        base.disableMouse()
 
         props = WindowProperties()
         props.setTitle('Solarsystem')
@@ -49,12 +50,16 @@ class World(object):
         self.ds = DeathStar(self.co)
 
         self.loadPlanets()
-        self.rotatePlanets()
+        self.rotatePlanets(1.0)
         self.simRunning = True
 
         #Erstellen der Events
         base.accept("p", self.handlePause)
+        base.accept("o", self.handleCamera)
         base.accept("escape", sys.exit)
+        base.accept("1", self.slower)
+        base.accept("2", self.normal)
+        base.accept("3", self.faster)
 
     def loadPlanets(self):
 
@@ -133,34 +138,34 @@ class World(object):
         self.moon.setScale(self.mo.get_size())
         self.moon.setPos(self.mo.get_orbitscale(), 0, 0)
 
-    def rotatePlanets(self):
+    def rotatePlanets(self, mod):
 
         self.day_period_sun = self.sun.hprInterval(20, (360, 0, 0))
 
         self.orbit_period_mercury = self.orbit_root_mercury.hprInterval(
-            (self.merc.get_yearscale()), (360, 0, 0))
+            (self.merc.get_yearscale()*mod), (360, 0, 0))
         self.day_period_mercury = self.mercury.hprInterval(
-            (self.merc.get_dayscale()), (360, 0, 0))
+            (self.merc.get_dayscale()*mod), (360, 0, 0))
 
         self.orbit_period_venus = self.orbit_root_venus.hprInterval(
-            (self.v.get_yearscale()), (360, 0, 0))
+            (self.v.get_yearscale()*mod), (360, 0, 0))
         self.day_period_venus = self.venus.hprInterval(
-            (self.v.get_dayscale()), (360, 0, 0))
+            (self.v.get_dayscale()*mod), (360, 0, 0))
 
         self.orbit_period_earth = self.orbit_root_earth.hprInterval(
-            self.e.get_yearscale(), (360, 0, 0))
+            (self.e.get_yearscale()*mod), (360, 0, 0))
         self.day_period_earth = self.earth.hprInterval(
-            self.e.get_dayscale(), (360, 0, 0))
+            (self.e.get_dayscale()*mod), (360, 0, 0))
 
         self.orbit_period_moon = self.orbit_root_moon.hprInterval(
-            (self.mo.get_yearscale()), (360, 0, 0))
+            (self.mo.get_yearscale()*mod), (360, 0, 0))
         self.day_period_moon = self.moon.hprInterval(
-            (self.mo.get_dayscale()), (360, 0, 0))
+            (self.mo.get_dayscale()*mod), (360, 0, 0))
 
         self.orbit_period_mars = self.orbit_root_mars.hprInterval(
-            (self.m.get_yearscale()), (360, 0, 0))
+            (self.m.get_yearscale()*mod), (360, 0, 0))
         self.day_period_mars = self.mars.hprInterval(
-            (self.m.get_dayscale()), (360, 0, 0))
+            (self.m.get_dayscale()*mod), (360, 0, 0))
 
         self.day_period_sun.loop()
         self.orbit_period_mercury.loop()
@@ -238,5 +243,19 @@ class World(object):
             interval.pause()
         else:
             interval.resume()
+
+    def handleCamera(self):
+        base.enableMouse()
+        base.useDrive()
+
+    def slower(self):
+        self.rotatePlanets(2)
+
+    def normal(self):
+        self.rotatePlanets(1)
+
+    def faster(self):
+        self.rotatePlanets(0.3)
+
 w = World()
 base.run()
