@@ -26,14 +26,16 @@ class World(object):
             style=1, fg=(1, 1, 1, 1), pos=(-0.1, 0.1), scale=.07)
 
         base.setBackgroundColor(0, 0, 0)
-        base.disableMouse()
+        #base.disableMouse()
+
+        base.useDrive()
 
         props = WindowProperties()
         props.setTitle('Solarsystem')
         base.win.requestProperties(props)
 
-        camera.setPos(0, 0, 45)
-        camera.setHpr(0, -90, 0)
+        base.camera.setPos(0, 0, 70)
+        base.camera.setHpr(0, -90, 0)
 
         #konkreter Himmelskoerper:
         self.co = ConcreteOrb()
