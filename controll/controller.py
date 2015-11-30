@@ -247,9 +247,13 @@ class World(object):
     def handleCamera(self):
         base.enableMouse()
         base.useDrive()
+        base.camera.setPos(0, 0, 0)
+        base.camera.setHpr(0, 0, 0)
 
     def handleBasicCamera(self):
-        base.oobe()
+        base.disableMouse()
+        base.camera.setPos(0, 0, 70)
+        base.camera.setHpr(0, -90, 0)
 
     def slower(self):
         self.rotatePlanets(2)

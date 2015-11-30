@@ -3,7 +3,7 @@ class Space(object):
 
         self.model = "models/solar_sky_sphere"
         self.size = 40
-        self.texture = "models/stars_1k_tex.jpg"
+        self.texture = "models/space_tex.jpg"
 
     def get_model(self):
         return self.model
