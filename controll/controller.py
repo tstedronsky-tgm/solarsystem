@@ -80,13 +80,13 @@ class World(object):
         self.showHelp = True
 
     def helpOff(self):
-        self.slowerEvent = self.genLabelText("", 1)
-        self.fasterEvent = self.genLabelText("", 2)
-        self.textureEvent = self.genLabelText("", 3)
-        self.cameraoption1 = self.genLabelText("", 4)
-        self.cameraoption2 = self.genLabelText("", 5)
-        self.cameraoption3 = self.genLabelText("", 6)
-        self.pause = self.genLabelText("", 7)
+        self.slowerEvent.destroy()
+        self.fasterEvent.destroy()
+        self.textureEvent.destroy()
+        self.cameraoption1.destroy()
+        self.cameraoption2.destroy()
+        self.cameraoption3.destroy()
+        self.pause.destroy()
         self.showHelp = False
 
     def loadPlanets(self):
