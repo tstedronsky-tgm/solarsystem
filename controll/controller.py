@@ -183,9 +183,6 @@ class World(object):
     def handlePause(self):
         if self.simRunning:
             print("Pausing Simulation")
-            # changing the text to reflect the change from "RUNNING" to
-            # "PAUSED"
-            # For each planet, check if it is moving and if so, pause it
             # Sun
             if self.day_period_sun.isPlaying():
                 self.togglePlanet("Sun", self.day_period_sun, None)
@@ -196,13 +193,13 @@ class World(object):
             if self.day_period_venus.isPlaying():
                 self.togglePlanet("Venus", self.day_period_venus,
                                   self.orbit_period_venus)
-            #Earth and moon
+            # Earth and moon
             if self.day_period_earth.isPlaying():
                 self.togglePlanet("Earth", self.day_period_earth,
                                   self.orbit_period_earth)
                 self.togglePlanet("Moon", self.day_period_moon,
                                   self.orbit_period_moon)
-            # jupiter
+            # Jupiter
             if self.day_period_jupiter.isPlaying():
                 self.togglePlanet("jupiter", self.day_period_jupiter,
                                   self.orbit_period_jupiter)
