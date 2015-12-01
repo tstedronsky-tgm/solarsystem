@@ -48,6 +48,7 @@ class World(object):
         self.mo = Moon(self.co)
         self.ds = DeathStar(self.co)
 
+
         self.loadPlanets()
         self.rotatePlanets(1.0)
         self.simRunning = True
@@ -58,8 +59,7 @@ class World(object):
         base.accept("i", self.handleCamera1)
         base.accept("u", self.handleCamera2)
         base.accept("1", self.slower)
-        base.accept("2", self.normal)
-        base.accept("3", self.faster)
+        base.accept("2", self.faster)
         base.accept("escape", sys.exit)
 
     def loadPlanets(self):
@@ -257,13 +257,56 @@ class World(object):
         base.camera.setHpr(0, -90, 0)
 
     def slower(self):
-        self.rotatePlanets(2)
-
-    def normal(self):
-        self.rotatePlanets(1)
+        if(self.orbit_period_earth.getPlayRate()-1 == 0):
+            self.orbit_period_earth.setPlayRate(-1)
+            self.day_period_earth.setPlayRate(-1)
+            self.orbit_period_mercury.setPlayRate(-1)
+            self.day_period_mercury.setPlayRate(-1)
+            self.orbit_period_venus.setPlayRate(-1)
+            self.day_period_venus.setPlayRate(-1)
+            self.orbit_period_jupiter.setPlayRate(-1)
+            self.day_period_jupiter.setPlayRate(-1)
+            self.orbit_period_moon.setPlayRate(-1)
+            self.day_period_moon.setPlayRate(-1)
+            self.day_period_sun.setPlayRate(-1)
+        else:
+            self.orbit_period_earth.setPlayRate(self.orbit_period_earth.getPlayRate()-1)
+            self.day_period_earth.setPlayRate(self.day_period_earth.getPlayRate()-1)
+            self.orbit_period_mercury.setPlayRate(self.orbit_period_mercury.getPlayRate()-1)
+            self.day_period_mercury.setPlayRate(self.day_period_mercury.getPlayRate()-1)
+            self.orbit_period_venus.setPlayRate(self.orbit_period_venus.getPlayRate()-1)
+            self.day_period_venus.setPlayRate(self.day_period_venus.getPlayRate()-1)
+            self.orbit_period_jupiter.setPlayRate(self.orbit_period_jupiter.getPlayRate()-1)
+            self.day_period_jupiter.setPlayRate(self.day_period_jupiter.getPlayRate()-1)
+            self.orbit_period_moon.setPlayRate(self.orbit_period_moon.getPlayRate()-1)
+            self.day_period_moon.setPlayRate(self.day_period_moon.getPlayRate()-1)
+            self.day_period_sun.setPlayRate(self.day_period_sun.getPlayRate()-1)
 
     def faster(self):
-        self.rotatePlanets(0.3)
+        if(self.orbit_period_earth.getPlayRate()+1 == 0):
+            self.orbit_period_earth.setPlayRate(+1)
+            self.day_period_earth.setPlayRate(+1)
+            self.orbit_period_mercury.setPlayRate(+1)
+            self.day_period_mercury.setPlayRate(+1)
+            self.orbit_period_venus.setPlayRate(+1)
+            self.day_period_venus.setPlayRate(+1)
+            self.orbit_period_jupiter.setPlayRate(+1)
+            self.day_period_jupiter.setPlayRate(+1)
+            self.orbit_period_moon.setPlayRate(+1)
+            self.day_period_moon.setPlayRate(+1)
+            self.day_period_sun.setPlayRate(+1)
+        else:
+            self.orbit_period_earth.setPlayRate(self.orbit_period_earth.getPlayRate()+1)
+            self.day_period_earth.setPlayRate(self.day_period_earth.getPlayRate()+1)
+            self.orbit_period_mercury.setPlayRate(self.orbit_period_mercury.getPlayRate()+1)
+            self.day_period_mercury.setPlayRate(self.day_period_mercury.getPlayRate()+1)
+            self.orbit_period_venus.setPlayRate(self.orbit_period_venus.getPlayRate()+1)
+            self.day_period_venus.setPlayRate(self.day_period_venus.getPlayRate()+1)
+            self.orbit_period_jupiter.setPlayRate(self.orbit_period_jupiter.getPlayRate()+1)
+            self.day_period_jupiter.setPlayRate(self.day_period_jupiter.getPlayRate()+1)
+            self.orbit_period_moon.setPlayRate(self.orbit_period_moon.getPlayRate()+1)
+            self.day_period_moon.setPlayRate(self.day_period_moon.getPlayRate()+1)
+            self.day_period_sun.setPlayRate(self.day_period_sun.getPlayRate()+1)
 
 w = World()
 base.run()
