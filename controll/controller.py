@@ -54,12 +54,13 @@ class World(object):
 
         #Erstellen der Events
         base.accept("p", self.handlePause)
-        base.accept("o", self.handleCamera)
-        base.accept("i", self.handleBasicCamera)
-        base.accept("escape", sys.exit)
+        base.accept("o", self.handleCameraTopView)
+        base.accept("i", self.handleCamera1)
+        base.accept("u", self.handleCamera2)
         base.accept("1", self.slower)
         base.accept("2", self.normal)
         base.accept("3", self.faster)
+        base.accept("escape", sys.exit)
 
     def loadPlanets(self):
 
@@ -244,13 +245,16 @@ class World(object):
         else:
             interval.resume()
 
-    def handleCamera(self):
+    def handleCamera1(self):
         base.enableMouse()
         base.useDrive()
-        base.camera.setPos(0, 0, 0)
-        base.camera.setHpr(0, 0, 0)
 
-    def handleBasicCamera(self):
+
+    def handleCamera2(self):
+        base.enableMouse()
+        base.useTrackball()
+
+    def handleCameraTopView(self):
         base.disableMouse()
         base.camera.setPos(0, 0, 70)
         base.camera.setHpr(0, -90, 0)
