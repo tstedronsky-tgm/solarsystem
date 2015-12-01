@@ -48,9 +48,9 @@ class World(object):
         self.mo = Moon(self.co)
         self.ds = DeathStar(self.co)
 
-
+        self.textureOn = True
         self.loadPlanets()
-        self.rotatePlanets(1.0)
+        self.rotatePlanets()
         self.simRunning = True
 
         #Erstellen der Events
@@ -58,6 +58,7 @@ class World(object):
         base.accept("o", self.handleCameraTopView)
         base.accept("i", self.handleCamera1)
         base.accept("u", self.handleCamera2)
+        base.accept("t", self.textureToggle)
         base.accept("1", self.slower)
         base.accept("2", self.faster)
         base.accept("escape", sys.exit)
@@ -139,34 +140,34 @@ class World(object):
         self.moon.setScale(self.mo.get_size())
         self.moon.setPos(self.mo.get_orbitscale(), 0, 0)
 
-    def rotatePlanets(self, mod):
+    def rotatePlanets(self):
 
         self.day_period_sun = self.sun.hprInterval(20, (360, 0, 0))
 
         self.orbit_period_mercury = self.orbit_root_mercury.hprInterval(
-            (self.merc.get_yearscale()*mod), (360, 0, 0))
+            (self.merc.get_yearscale()), (360, 0, 0))
         self.day_period_mercury = self.mercury.hprInterval(
-            (self.merc.get_dayscale()*mod), (360, 0, 0))
+            (self.merc.get_dayscale()), (360, 0, 0))
 
         self.orbit_period_venus = self.orbit_root_venus.hprInterval(
-            (self.v.get_yearscale()*mod), (360, 0, 0))
+            (self.v.get_yearscale()), (360, 0, 0))
         self.day_period_venus = self.venus.hprInterval(
-            (self.v.get_dayscale()*mod), (360, 0, 0))
+            (self.v.get_dayscale()), (360, 0, 0))
 
         self.orbit_period_earth = self.orbit_root_earth.hprInterval(
-            (self.e.get_yearscale()*mod), (360, 0, 0))
+            (self.e.get_yearscale()), (360, 0, 0))
         self.day_period_earth = self.earth.hprInterval(
-            (self.e.get_dayscale()*mod), (360, 0, 0))
+            (self.e.get_dayscale()), (360, 0, 0))
 
         self.orbit_period_moon = self.orbit_root_moon.hprInterval(
-            (self.mo.get_yearscale()*mod), (360, 0, 0))
+            (self.mo.get_yearscale()), (360, 0, 0))
         self.day_period_moon = self.moon.hprInterval(
-            (self.mo.get_dayscale()*mod), (360, 0, 0))
+            (self.mo.get_dayscale()), (360, 0, 0))
 
         self.orbit_period_jupiter = self.orbit_root_jupiter.hprInterval(
-            (self.j.get_yearscale()*mod), (360, 0, 0))
+            (self.j.get_yearscale()), (360, 0, 0))
         self.day_period_jupiter = self.jupiter.hprInterval(
-            (self.j.get_dayscale()*mod), (360, 0, 0))
+            (self.j.get_dayscale()), (360, 0, 0))
 
         self.day_period_sun.loop()
         self.orbit_period_mercury.loop()
@@ -307,6 +308,26 @@ class World(object):
             self.orbit_period_moon.setPlayRate(self.orbit_period_moon.getPlayRate()+1)
             self.day_period_moon.setPlayRate(self.day_period_moon.getPlayRate()+1)
             self.day_period_sun.setPlayRate(self.day_period_sun.getPlayRate()+1)
+
+    def textureToggle(self):
+        if(self.textureOn == True):
+            self.earth.setTextureOff()
+            self.deathstar.setTextureOff()
+            self.moon.setTextureOff()
+            self.mercury.setTextureOff()
+            self.jupiter.setTextureOff()
+            self.sun.setTextureOff()
+            self.venus.setTextureOff()
+            self.textureOn = False
+        else:
+            self.earth.setTexture(self.earth_tex)
+            self.deathstar.setTexture(self.deathstar_tex)
+            self.moon.setTexture(self.moon_tex)
+            self.mercury.setTexture(self.mercury_tex)
+            self.jupiter.setTexture(self.jupiter_tex)
+            self.sun.setTexture(self.sun_tex)
+            self.venus.setTexture(self.venus_tex)
+            self.textureOn = True
 
 w = World()
 base.run()
