@@ -273,13 +273,13 @@ class World(object):
     def handleCamera1(self):
         base.enableMouse()
         base.useDrive()
-        #setzt Kamera auf gewünschte Ausgangsposition
-        base.drive.node().setPos(0, -60, 0)
+        #setzt Kamera auf gewuenschte Ausgangsposition
+        base.drive.node().setPos(0, -40, 0)
 
     def handleCamera2(self):
         base.enableMouse()
         base.useTrackball()
-         #setzt Kamera auf gewünschte Ausgangsposition
+         #setzt Kamera auf gewuenschte Ausgangsposition
         base.trackball.node().setPos(0, 60, 0)
 
     def handleCameraTopView(self):
