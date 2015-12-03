@@ -50,6 +50,7 @@ class World(object):
         self.ds = DeathStar(self.co)
 
         self.showHelp = False
+        self.textureOn = True
 
         self.loadPlanets()
         self.rotatePlanets(1.0)
@@ -60,6 +61,7 @@ class World(object):
         base.accept("o", self.handleCameraTopView)
         base.accept("i", self.handleCamera1)
         base.accept("u", self.handleCamera2)
+        base.accept("t", self.textureToggle)
         base.accept("1", self.slower)
         base.accept("2", self.faster)
         base.accept("h", self.showHelpView)
@@ -340,6 +342,26 @@ class World(object):
             self.orbit_period_moon.setPlayRate(self.orbit_period_moon.getPlayRate()+1)
             self.day_period_moon.setPlayRate(self.day_period_moon.getPlayRate()+1)
             self.day_period_sun.setPlayRate(self.day_period_sun.getPlayRate()+1)
+
+    def textureToggle(self):
+        if(self.textureOn == True):
+            self.earth.setTextureOff()
+            self.deathstar.setTextureOff()
+            self.moon.setTextureOff()
+            self.mercury.setTextureOff()
+            self.jupiter.setTextureOff()
+            self.sun.setTextureOff()
+            self.venus.setTextureOff()
+            self.textureOn = False
+        else:
+            self.earth.setTexture(self.earth_tex)
+            self.deathstar.setTexture(self.deathstar_tex)
+            self.moon.setTexture(self.moon_tex)
+            self.mercury.setTexture(self.mercury_tex)
+            self.jupiter.setTexture(self.jupiter_tex)
+            self.sun.setTexture(self.sun_tex)
+            self.venus.setTexture(self.venus_tex)
+            self.textureOn = True
 
 w = World()
 base.run()
