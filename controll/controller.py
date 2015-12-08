@@ -29,10 +29,28 @@ class World(object):
 
         base.disableMouse()
 
+        # Lichteffekte
+        plight = PointLight('plight')
+        plight.setColor(VBase4(1, 1, 1, 1))
+        self.plnp = render.attachNewNode(plight)
+        self.plnp.setPos(0, 0, 0)
+        render.setLight(self.plnp)
+        # wird benoetigt damit schatten nicht komplett schwarz
+        alight = AmbientLight('alight')
+        alight.setColor(VBase4(0.2, 0.2, 0.2, 1))
+        self.alnp = render.attachNewNode(alight)
+        render.setLight(self.alnp)
+        #Licht fuer Sonne
+        slight = AmbientLight('slight')
+        slight.setColor(VBase4(100, 100, 100, 1))
+        self.slnp = render.attachNewNode(slight)
+
+        # Titel des Fensters
         props = WindowProperties()
         props.setTitle('Solarsystem')
         base.win.requestProperties(props)
 
+        # Kamerapositionen
         base.camera.setPos(0, 0, 70)
         base.camera.setHpr(0, -90, 0)
 
@@ -115,6 +133,7 @@ class World(object):
         self.sun_tex = loader.loadTexture(self.s.get_texture())
         self.sun.setTexture(self.sun_tex, 1)
         self.sun.setScale(self.s.get_size())
+        self.sun.setLight(self.slnp)
 
         # Erstellung von Merkur
         self.mercury = loader.loadModel(self.merc.get_model())
@@ -355,6 +374,8 @@ class World(object):
             self.jupiter.setTextureOff()
             self.sun.setTextureOff()
             self.venus.setTextureOff()
+            render.clearLight(self.alnp)
+            render.clearLight(self.plnp)
             self.textureOn = False
         else:
             self.earth.setTexture(self.earth_tex)
@@ -364,6 +385,8 @@ class World(object):
             self.jupiter.setTexture(self.jupiter_tex)
             self.sun.setTexture(self.sun_tex)
             self.venus.setTexture(self.venus_tex)
+            render.setLight(self.alnp)
+            render.setLight(self.plnp)
             self.textureOn = True
 
 w = World()
