@@ -44,4 +44,4 @@ class Venus(object):
         """
         :return: Wie schnell der Himmelskoeper rotiert
         """
-        return self.concrete_orb.get_dayscale() * 243
+        return self.concrete_orb.get_dayscale() * 2.43

@@ -44,4 +44,4 @@ class Mercury(object):
         """
         :return: Wie schnell der Himmelskoeper rotiert
         """
-        return self.concrete_orb.get_dayscale() * 59
+        return self.concrete_orb.get_dayscale() * 1.59
