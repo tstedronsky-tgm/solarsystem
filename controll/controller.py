@@ -16,10 +16,16 @@ from panda3d.core import *
 from direct.gui.DirectGui import *
 import sys
 
-
-class World(object):
+class Controller(object):
+    """
+    Erstellt das Fenster und die Scene und regelt alle Userinteraktionen
+    """
 
     def __init__(self):
+        """
+        World Konstruktor
+        :return: void
+        """
         self.title = OnscreenText(
             text="Solarsystem - von Thomas Stedronsky und Simon Wortha",
             parent=base.a2dBottomRight, align=TextNode.A_right,
@@ -70,7 +76,7 @@ class World(object):
         self.textureOn = True
 
         self.loadPlanets()
-        self.rotatePlanets(1.0)
+        self.rotatePlanets()
         self.simRunning = True
 
         #Erstellen der Events
@@ -85,10 +91,19 @@ class World(object):
         base.accept("escape", sys.exit)
 
     def genLabelText(self, text, i):
+        """
+        :param text: Der gewuenschte Text
+        :param i: Stelle an der der Text angezeigt werden soll
+        :return: Onscreen Text
+        """
         return OnscreenText(text=text, pos=(0.06, -.06 * (i + 0.5)), fg=(1, 1, 1, 1),
                             parent=base.a2dTopLeft,align=TextNode.ALeft, scale=.05)
 
     def helpOn(self):
+        """
+        schaltet die Hilfe ein
+        :return: void
+        """
         self.slowerEvent = self.genLabelText("[1]\tLangsamer", 1)
         self.fasterEvent = self.genLabelText("[2]\tSchneller", 2)
         self.textureEvent = self.genLabelText("[T]\tTexture an/aus", 3)
@@ -99,6 +114,10 @@ class World(object):
         self.showHelp = True
 
     def helpOff(self):
+        """
+        schaltet die Hilfe aus
+        :return: void
+        """
         self.slowerEvent.destroy()
         self.fasterEvent.destroy()
         self.textureEvent.destroy()
@@ -109,6 +128,10 @@ class World(object):
         self.showHelp = False
 
     def loadPlanets(self):
+        """
+        ladet die Planeten in die Scene
+        :return: void
+        """
 
         #Festlegung der Orbits der einzelnen Planeten:
         self.orbit_root_mercury = render.attachNewNode('orbit_root_mercury')
@@ -186,34 +209,38 @@ class World(object):
         self.moon.setScale(self.mo.get_size())
         self.moon.setPos(self.mo.get_orbitscale(), 0, 0)
 
-    def rotatePlanets(self, mod):
+    def rotatePlanets(self):
+        """
+        sorgt dafuer dass die Planeten sich bewegen und rotieren
+        :return: void
+        """
 
         self.day_period_sun = self.sun.hprInterval(20, (360, 0, 0))
 
         self.orbit_period_mercury = self.orbit_root_mercury.hprInterval(
-            (self.merc.get_yearscale()*mod), (360, 0, 0))
+            (self.merc.get_yearscale()), (360, 0, 0))
         self.day_period_mercury = self.mercury.hprInterval(
-            (self.merc.get_dayscale()*mod), (360, 0, 0))
+            (self.merc.get_dayscale()), (360, 0, 0))
 
         self.orbit_period_venus = self.orbit_root_venus.hprInterval(
-            (self.v.get_yearscale()*mod), (360, 0, 0))
+            (self.v.get_yearscale()), (360, 0, 0))
         self.day_period_venus = self.venus.hprInterval(
-            (self.v.get_dayscale()*mod), (360, 0, 0))
+            (self.v.get_dayscale()), (360, 0, 0))
 
         self.orbit_period_earth = self.orbit_root_earth.hprInterval(
-            (self.e.get_yearscale()*mod), (360, 0, 0))
+            (self.e.get_yearscale()), (360, 0, 0))
         self.day_period_earth = self.earth.hprInterval(
-            (self.e.get_dayscale()*mod), (360, 0, 0))
+            (self.e.get_dayscale()), (360, 0, 0))
 
         self.orbit_period_moon = self.orbit_root_moon.hprInterval(
-            (self.mo.get_yearscale()*mod), (360, 0, 0))
+            (self.mo.get_yearscale()), (360, 0, 0))
         self.day_period_moon = self.moon.hprInterval(
-            (self.mo.get_dayscale()*mod), (360, 0, 0))
+            (self.mo.get_dayscale()), (360, 0, 0))
 
         self.orbit_period_jupiter = self.orbit_root_jupiter.hprInterval(
-            (self.j.get_yearscale()*mod), (360, 0, 0))
+            (self.j.get_yearscale()), (360, 0, 0))
         self.day_period_jupiter = self.jupiter.hprInterval(
-            (self.j.get_dayscale()*mod), (360, 0, 0))
+            (self.j.get_dayscale()), (360, 0, 0))
 
         self.day_period_sun.loop()
         self.orbit_period_mercury.loop()
@@ -228,6 +255,10 @@ class World(object):
         self.day_period_jupiter.loop()
 
     def handlePause(self):
+        """
+        Pausiert das Solarsystem
+        :return:
+        """
         if self.simRunning:
             print("Pausing Simulation")
             # Sun
@@ -274,6 +305,14 @@ class World(object):
         self.simRunning = not self.simRunning
 
     def togglePlanet(self, planet, day, orbit=None, text=None):
+        """
+        pausiert die Rotatuin der einzelnen Planeten einzelne Planeten
+        :param planet: der zu pausierende Planet
+        :param day: die Geschwindigkeit der Rotation
+        :param orbit: die Sphere auf der sich der Planet bewegt
+        :param text: ohne funktioniert es nicht
+        :return: voif
+        """
         if day.isPlaying():
             state = " [PAUSED]"
         else:
@@ -284,29 +323,50 @@ class World(object):
 
 
     def toggleInterval(self, interval):
+        """
+        wird fuer die Pause benoetigt
+        :param interval: Tag oder Orbit
+        :return: void
+        """
         if interval.isPlaying():
             interval.pause()
         else:
             interval.resume()
 
     def handleCamera1(self):
+        """
+        schaltet auf erste Kamera um
+        :return: void
+        """
         base.enableMouse()
         base.useDrive()
         #setzt Kamera auf gewuenschte Ausgangsposition
         base.drive.node().setPos(0, -40, 0)
 
     def handleCamera2(self):
+        """
+        schaltet auf zweite Kamera um
+        :return: void
+        """
         base.enableMouse()
         base.useTrackball()
         #setzt Kamera auf gewuenschte Ausgangsposition
         base.trackball.node().setPos(0, 40, 0)
 
     def handleCameraTopView(self):
+        """
+        schaltet auf die Topview Kamera um
+        :return: void
+        """
         base.disableMouse()
         base.camera.setPos(0, 0, 70)
         base.camera.setHpr(0, -90, 0)
 
     def showHelpView(self):
+        """
+        blendet Hilfe menu ein und wieder aus
+        :return:
+        """
         print "help"
         if self.showHelp == True:
             self.helpOff()
@@ -314,6 +374,10 @@ class World(object):
             self.helpOn()
 
     def slower(self):
+        """
+        verlangssamt das Solarsystem
+        :return: void
+        """
         if(self.orbit_period_earth.getPlayRate()-1 == 0):
             self.orbit_period_earth.setPlayRate(-1)
             self.day_period_earth.setPlayRate(-1)
@@ -340,6 +404,10 @@ class World(object):
             self.day_period_sun.setPlayRate(self.day_period_sun.getPlayRate()-1)
 
     def faster(self):
+        """
+        verschnellert das Solarsystem
+        :return: void
+        """
         if(self.orbit_period_earth.getPlayRate()+1 == 0):
             self.orbit_period_earth.setPlayRate(+1)
             self.day_period_earth.setPlayRate(+1)
@@ -366,6 +434,10 @@ class World(object):
             self.day_period_sun.setPlayRate(self.day_period_sun.getPlayRate()+1)
 
     def textureToggle(self):
+        """
+        toggelt die Texturen
+        :return: void
+        """
         if(self.textureOn == True):
             self.earth.setTextureOff()
             self.deathstar.setTextureOff()
@@ -389,5 +461,5 @@ class World(object):
             render.setLight(self.plnp)
             self.textureOn = True
 
-w = World()
+w = Controller()
 base.run()
